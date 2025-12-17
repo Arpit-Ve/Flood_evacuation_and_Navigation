@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodSafe Navigator - Flood Evacuation & Emergency Navigation</title>
+    <meta name="description" content="Real-time flood alerts, evacuation routes, and emergency resources to keep you safe during flood emergencies. Stay informed with FloodSafe Navigator.">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+   <div id="backendData"></div>
+   
+
+
+
+
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <span class="logo-text">FloodSafe</span>
+                </div>
+                
+                <div class="nav-links" id="navLinks">
+                    <a href="#status">Status</a>
+                    <a href="#features">Features</a>
+                    <a href="#safety">Safety Guide</a>
+                    <a href="#contact">Emergency</a>
+                </div>
+                
+              <button id="getAlertBtn" class="btn btn-accent">Get Alerts</button>
+
+                
+                <button class="menu-toggle" id="menuToggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#status">Status</a>
+                <a href="#features">Features</a>
+                <a href="#safety">Safety Guide</a>
+                <a href="#contact">Emergency</a>
+                <button id="getAlertBtn" class="btn btn-accent">Get Alerts</button>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <span>FloodSafe Navigator</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Stay Safe During
+                    <span class="hero-title-accent">Flood Emergencies</span>
+                </h1>
+                
+                <p class="hero-description">
+                    Real-time flood alerts, evacuation routes, and emergency resources to keep you and your community safe.
+                </p>
+
+                <div class="hero-buttons">
+                    <button class="btn btn-accent btn-lg">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        Check Alert Status
+                    </button>
+                    <button class="btn btn-outline btn-lg">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                        </svg>
+                        Find Evacuation Routes
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path fill="#f8f9fb" d="M0,32L48,37.3C96,43,192,53,288,58.7C384,64,480,64,576,58.7C672,53,768,43,864,48C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Status Dashboard -->
+    <section class="section" id="status">
+        <div class="alert-grid" id="statusGrid"></div>
+
+<div class="dataset-box" id="datasetBox"></div>
+
+
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Current Status & Alerts</h2>
+                <p class="section-subtitle">Real-time updates on flood conditions in your area</p>
+            </div>
+            <div id="liveStatus"></div>
+
+            <div class="alert-grid">
+                <div class="alert-card alert-warning">
+                    <div class="alert-icon alert-icon-warning">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-header">
+                            <h3>Downtown District</h3>
+                            <span class="badge">2 hours ago</span>
+                        </div>
+                        <p>Moderate flood risk - Monitor conditions</p>
+                    </div>
+                </div>
+
+                <div class="alert-card alert-safe">
+                    <div class="alert-icon alert-icon-safe">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-header">
+                            <h3>North Valley</h3>
+                            <span class="badge">1 hour ago</span>
+                        </div>
+                        <p>All clear - Normal water levels</p>
+                    </div>
+                </div>
+
+                <div class="alert-card alert-info">
+                    <div class="alert-icon alert-icon-info">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-header">
+                            <h3>East Riverside</h3>
+                            <span class="badge">30 minutes ago</span>
+                        </div>
+                        <p>Evacuation routes tested successfully</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section section-alt" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Comprehensive Safety Features</h2>
+                <p class="section-subtitle">Everything you need to stay informed and protected during flood emergencies</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <h3>Interactive Flood Maps</h3>
+                    <p>View real-time flood zones, water levels, and affected areas on detailed interactive maps.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Smart Evacuation Routes</h3>
+                    <p>Get optimized evacuation routes based on current conditions and traffic patterns.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                    </div>
+                    <h3>Instant Alerts</h3>
+                    <p>Receive immediate notifications about flood warnings and emergency updates in your area.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>Community Safety</h3>
+                    <p>Connect with local emergency services and community support networks.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <h3>Mobile Ready</h3>
+                    <p>Access critical information anytime, anywhere with our mobile-optimized platform.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <h3>Safety Resources</h3>
+                    <p>Comprehensive guides on flood preparedness, emergency kits, and safety procedures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Guide -->
+    <section class="section" id="safety">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Flood Safety Guidelines</h2>
+                <p class="section-subtitle">Essential steps to protect yourself and your family</p>
+            </div>
+
+            <div class="safety-grid">
+                <div class="safety-card">
+                    <div class="safety-badge safety-badge-primary">Before Flood</div>
+                    <ul class="safety-list">
+                        <li>
+                            <span class="check-icon check-icon-primary">✓</span>
+                            <span>Create an emergency evacuation plan with your family</span>
+                        </li>
+                        <li>
+                            <span class="check-icon check-icon-primary">✓</span>
+                            <span>Prepare an emergency kit with essentials</span>
+                        </li>
+                        <li>
+                            <span class="check-icon check-icon-primary">✓</span>
+                            <span>Know your area's flood risk and evacuation routes</span>
+                        </li>
+                        <li>
+                            <span class="check-icon check-icon-primary">✓</span>
+                            <span>Sign up for local emergency alerts</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="safety-card">
+                    <div class="safety-badge safety-badge-accent">During Flood</div>
+                    <ul class="safety-list">
+                        <li>
+                            <span class="check-icon check-icon-accent">✓</span>
+                            <span>Move immediately to higher ground when warned</span>
+                        </li>
+                        <li>
+                            <span class="check-icon check-icon-accent">✓</span>
+                            <span>Never walk or drive through flood waters</span>
+                        </li>
+                        <li>
+                            <span class="check-icon check-icon-accent">✓</span>
+                            <span>Stay informed via radio or mobile alerts</span>
+                        </li>
+                        <li>
+                            <span class="check-icon check-icon-accent">✓</span>
+                            <span>Turn off utilities if instructed to do so</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="safety-card">
+                    <div class="safety-badge safety-badge-success">After Flood</div>
+                    <ul class="safety-list">
+                        <li>
+                            <span class="check-icon check-icon-success">✓</span>
+                            <span>Return home only when authorities say it's safe</span>
+                        </li>
+                        <li>
+                            <span class="check-icon check-icon-success">✓</span>
+                            <span>Document damage for insurance claims</span>
+                        </li>
+                        <li>
+                            <span class="check-icon check-icon-success">✓</span>
+                            <span>Avoid floodwaters - they may be contaminated</span>
+                        </li>
+                        <li>
+                            <span class="check-icon check-icon-success">✓</span>
+                            <span>Watch for structural damage before entering buildings</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Contacts -->
+    <section class="section section-emergency" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title text-white">Emergency Contacts & Resources</h2>
+                <p class="section-subtitle text-white">Get help when you need it most</p>
+            </div>
+
+            <div class="contacts-grid">
+                <div class="contact-card">
+                    <h3>Emergency Services</h3>
+                    <p>For immediate life-threatening emergencies</p>
+                    <button class="btn btn-accent">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        112
+                    </button>
+                </div>
+
+                <div class="contact-card">
+                    <h3>Flood Hotline</h3>
+                    <p>24/7 flood information and assistance</p>
+                    <button class="btn btn-accent">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        011-26107953-FLOOD
+                    </button>
+                </div>
+
+                <div class="contact-card">
+                    <h3>Evacuation Centers</h3>
+                    <p>Find nearest shelter and evacuation center</p>
+                    <button class="btn btn-accent">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        112
+                    </button>
+                </div>
+            </div>
+
+            <div class="resources-card">
+                <div class="resources-grid">
+                    <div class="resource-item">
+                        <svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <h4>Find Shelters</h4>
+                        <a href="#">View Map →</a>
+                    </div>
+                    <div class="resource-item">
+                        <svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <h4>Report Flooding</h4>
+                        <a href="#">Submit Report →</a>
+                    </div>
+                    <div class="resource-item">
+                        <svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <h4>Get Alerts</h4>
+                        <a href="login.html">Sign Up →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        <span>FloodSafe</span>
+                    </div>
+                    <p>Keeping communities safe through real-time flood monitoring and emergency navigation.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#status">Alert Status</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#safety">Safety Guide</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Evacuation Maps</a></li>
+                        <li><a href="#">Emergency Kits</a></li>
+                        <li><a href="#">Community Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Emergency</h3>
+                    <ul>
+                        <li><a href="tel:911">Call 911</a></li>
+                        <li><a href="#">Find Shelter</a></li>
+                        <li><a href="#">Report Flooding</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 FloodSafe Navigator. Protecting communities, saving lives.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
